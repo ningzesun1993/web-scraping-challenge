@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    </div>
+    <div class = 'container'>
+      {% if mars.news_title %}
+      <div class = 'row'>
+        <div class="col-lg-8 col-md-8 col-sm-12">
+          <div class="row" style="text-align: left">
+              <br>
+              <h2>Latest Mars News</h2>
+              <h4>{{ mars.news_title}}</h4>
+              <p>{{ mars.news_p}}</p>
+              <br>
+          </div>
+          <div class = 'row'>
+              <h2>Featured Mars Image</h2>
+              <figure>
+                <img src="{{mars.featured_image_url}}" alt="Featured image for the news" 
+                      style = 'max-width: 100%; max-height: auto'>
+              </figure>
+          </div>
+        </div>
+        <div class = 'col-lg-4 col-md-4 col-sm-12' style = 'margin-top:30px;'>
+            <h3>Current Weather on Mars</h3>
+            <div style = 'margin-top:20px;'>
+              {{mars.mars_weather}}
+            </div>
+        </div>
+        <div class = 'col-lg-4 col-md-4 col-sm-12'>
+          <div class = 'col-12', style = 'text-align: center;'>
+            <h3>Mars Facts</h3>
+          </div>
+          <div style = 'margin-top:30px;'>
+              {{mars.mars_facts|safe}}
+            </div>
+        </div>
+      </div>
+      {% else %}
+        <h3>No data exists, please click the Scrape New Data button to get the data!</h3>
+        <br>
+      {% endif %}
+    <div class = 'row', style = 'margin-top:30px;'>
+      <div class = 'col-12' style = 'text-align: center'>
+          <h2> Mars Hemspheres</h2>
+      </div>
+      <div class = 'row card-deck'>
+          {% if mars.hemisphere_image_urls %}
+          {% for image in mars.hemisphere_image_urls%}
+          <div class = 'col-md-6 col-sm-12'>
+            <div class = 'card'>
+                <img src= "{{image['img_url']}}" class = 'card-img-top' style = 'width: 70%;margin-left:80px;' alt="{{image['title']}}" >
+                <div class = 'card-body'>
+                  <p class = 'card-text' style = 'text-align:center;'>
+                    {{image['title']}}
+                  </p>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          {% endif %}
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
